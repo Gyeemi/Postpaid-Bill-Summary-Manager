@@ -1,7 +1,12 @@
 # Restoring the v8 source if the workspace ever resets
 
-The workspace has repeatedly reverted `src/` between sessions. `PBM-source-v8.tar.gz` in this
-folder is a complete snapshot of the **verified v8 source** (auth, portrait, draft deletion,
+The workspace can revert `src/` between sessions. Two independent copies of the **verified
+v8 source** live in this folder:
+
+- `pbm-git-repo.bundle` — a git repository (branch `main`, one commit). Restore with
+  `git clone pbm-git-repo.bundle postpaid-bill-manager`.
+- The sections below also describe how to rebuild, verify and re-package the app from a
+  source checkout. (auth, portrait, draft deletion,
 PDF-option removal, smoke harness, build scripts, package.json).
 
 To restore:

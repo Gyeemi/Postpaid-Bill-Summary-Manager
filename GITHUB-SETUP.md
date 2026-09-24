@@ -106,6 +106,18 @@ npm run package:win        # build the Windows installer (see README)
 
 First launch shows the sign-in screen — `admin` / `admin123` (change it in **User Management**).
 
+## If git commands suddenly say "not a repository"
+
+This sandbox does not persist a repository's `.git/config` between sessions, so a clone made
+*here* can occasionally lose its plumbing. Your own clone is unaffected. To rebuild the local
+repo metadata from the bundle (objects and history are inside it):
+
+```bash
+git init                 # recreates .git/config without touching history
+git fetch pbm-git-repo.bundle main:main
+git reset --hard main
+```
+
 ## Notes specific to this project
 
 - The repository content is the **v8 build**: secure sign-in with roles, PDF shortcuts removed,
