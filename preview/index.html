@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Postpaid Bill Manager – Preview Build</title>
+<style>
+  body{font-family:Segoe UI,system-ui,Arial,sans-serif;margin:0;background:#f6f8fb;color:#1e293b}
+  header{background:#16324f;color:#fff;padding:18px 24px}
+  header h1{margin:0;font-size:20px}
+  header p{margin:6px 0 0;opacity:.8;font-size:13px}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px}
+  .card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;margin:16px 0;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .card h2{margin:0 0 10px;font-size:16px}
+  .btn{display:inline-block;background:#2f6db3;color:#fff;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;margin:6px 6px 0 0}
+  .btn.alt{background:#eef2f7;color:#16324f}
+  code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:12px;word-break:break-all}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:800px){.grid{grid-template-columns:1fr}}
+  img{width:100%;border:1px solid #e2e8f0;border-radius:8px;background:#fff}
+  .ok{color:#16a34a;font-weight:600}
+  .warn{color:#d97706}
+</style>
+</head>
+<body>
+<header>
+  <h1>Postpaid Bill Summary Manager – v5 Fixed Build</h1>
+  <p>SHA256: 878b50c4d1a839491a37e354a9aeff8e2336845a7372efa5a12227a0650c7ce4 — Print Original Bill PDF trimmed at Account Summary now renders</p>
+</header>
+<div class="wrap">
+  <div class="card">
+    <h2>✅ Fix Verified</h2>
+    <p><span class="ok">Toolbar + PDF both render</span> — previous white blank fixed by removing <code>win.webContents.id</code> crash on BaseWindow and using <code>require('electron')</code> directly for buttons.</p>
+    <ul>
+      <li>Toolbar: <code>Print Bill – 02. Mr. A K Basu Mullick.pdf (pages 1–1) — 1 of 1 pages (trimmed at Account Summary)</code> + Print… / Open in system viewer / Close</li>
+      <li>PDF: TASHI INFOCOMM — WIRELESS POSTPAID BILL with Bill Summary + Account Summary preserved (logos/fonts)</li>
+      <li>Print… → <code>pdfView.webContents.print({silent:false})</code> → Windows print dialog prints only trimmed pages</li>
+      <li>Open → <code>shell.openPath</code> → Edge/Acrobat, Close → <code>win.close()</code></li>
+    </ul>
+    <a class="btn" href="/release/PBM-Setup-v5.exe">⬇ Download Setup.exe (91 MB) – no spaces</a>
+    <a class="btn" href="/release/Postpaid%20Bill%20Summary%20Manager-1.0.0-Setup.exe">⬇ Download Original Name (encoded)</a>
+    <a class="btn alt" href="/release/SHA256SUMS.txt">SHA256SUMS.txt</a>
+    <a class="btn alt" href="/">Browse all files</a>
+    <a class="btn alt" href="/release/">Browse /release/</a>
+    <p style="margin-top:10px">File: <code>release/Postpaid Bill Summary Manager-1.0.0-Setup.exe</code><br/>SHA: <code>878b50c4d1a839491a37e354a9aeff8e2336845a7372efa5a12227a0650c7ce4</code></p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Toolbar Screenshot</h2>
+      <img src="/shots/smoke-preview-toolbar.png" alt="toolbar"/>
+      <p>Shows Print… / Open in system viewer / Close working</p>
+    </div>
+    <div class="card">
+      <h2>PDF Screenshot</h2>
+      <img src="/shots/smoke-preview-pdf.png" alt="pdf preview"/>
+      <p>Chrome PDF viewer rendering trimmed PDF 1..summaryPage with original layout</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>How to test on Windows</h2>
+    <ol>
+      <li>Install the Setup.exe</li>
+      <li>Import PDFs from <code>samples/</code> (e.g., 02. Mr. A K Basu Mullick.pdf)</li>
+      <li>Go to Import → click <b>Print Original</b> on any bill</li>
+      <li>Verify window title <code>Print Bill – … (pages 1–2) — 2 of 9 pages (trimmed at Account Summary)</code></li>
+      <li>Verify white area now shows PDF content, not blank</li>
+      <li>Click Print… → Windows dialog → prints only 1–2 pages</li>
+      <li>Click Open in system viewer → Edge/Acrobat opens same trimmed file</li>
+      <li>Click Close or Esc → closes immediately</li>
+    </ol>
+  </div>
+</div>
+</body>
+</html>

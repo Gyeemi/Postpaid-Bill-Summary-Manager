@@ -1,0 +1,61 @@
+appId: com.office.postpaidbillmanager
+productName: Postpaid Bill Summary Manager
+copyright: Copyright © 2026
+
+electronVersion: 33.4.11
+
+# ship only en-US locale (smaller installer); OCR needs the win32 napi canvas binary
+electronLanguages:
+  - en-US
+
+directories:
+  output: release
+  buildResources: build
+
+# asar is disabled intentionally: the PDF worker module, tesseract.js worker threads
+# and the @napi-rs/canvas native module must be loadable from plain filesystem paths.
+asar: false
+
+files:
+  - out/**
+  - package.json
+  # win32 runtime deps installed ad-hoc by scripts/prepare-win-natives.mjs
+  - '**/node_modules/@napi-rs/canvas-win32-x64-msvc/**'
+  # not needed at runtime: pdf.js is bundled into out/ and the worker ships via
+  # extraResources; also drop foreign-platform native binaries + docs/junk
+  - '!**/node_modules/pdfjs-dist/**'
+  - '!**/@napi-rs/canvas-{linux,darwin,android,freebsd,netbsd,openbsd}-*'
+  - '!**/prebuilds/linux-*'
+  - '!**/prebuilds/darwin-*'
+  - '!**/node_modules/**/*.{md,gyp,gypi,cc,map,ts}'
+  # NB: exceljs keeps runtime code in lib/doc — do not exclude bare 'doc'.
+  - '!**/node_modules/**/{test,tests,__tests__,docs,example,examples,man}/**'
+
+extraResources:
+  - from: resources/pdfjs
+    to: pdfjs
+  - from: resources/tessdata
+    to: tessdata
+
+afterPack: scripts/afterPack-win-canvas.cjs
+
+npmRebuild: false
+
+win:
+  target:
+    - nsis
+    - portable
+  artifactName: ${productName}-${version}-Setup.${ext}
+  requestedExecutionLevel: asInvoker
+
+portable:
+  artifactName: ${productName}-${version}-Portable.${ext}
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Postpaid Bill Summary Manager
+  deleteAppDataOnUninstall: false

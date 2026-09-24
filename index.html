@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Download — Postpaid Bill Summary Manager v8</title>
+<style>
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; margin:0; background:#0f2440; color:#e8f0f9; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 40px 22px 60px; }
+  h1 { font-size: 24px; margin: 0 0 6px; }
+  p.lead { color:#9fbdd9; font-size:14px; margin:0 0 26px; }
+  a.big { display:block; text-align:center; background:#2f6db3; color:#fff; text-decoration:none;
+          font-size:19px; font-weight:700; padding:22px; border-radius:12px; box-shadow:0 6px 22px rgba(0,0,0,.35); }
+  a.big:hover { background:#3a80cc; }
+  .meta { margin:14px 0 0; font-size:13px; color:#9fbdd9; }
+  code { background:#173352; padding:2px 7px; border-radius:5px; font-size:12.5px; color:#cfe6ff; }
+  .card { background:#122c47; border-radius:12px; padding:18px 20px; margin-top:22px; }
+  h2 { font-size:15px; margin:0 0 10px; color:#cfe6ff; }
+  ol, ul { margin:0; padding-left:22px; font-size:13.5px; line-height:1.75; color:#c3d7ea; }
+  .ok { color:#7fe0a8; font-weight:600; }
+  .warn { color:#ffd479; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Postpaid Bill Summary Manager — v8</h1>
+  <p class="lead">Secure sign-in · PDF options removed · Delete Draft for any month · A4 portrait reports</p>
+
+  <a class="big" href="release/PBM-Setup-v8.exe" download>⬇&nbsp; Download PBM-Setup-v8.exe (94.7 MB)</a>
+  <p class="meta">Size: 94,716,136 bytes · SHA-256: <code>f4c245899efb6509d4c6dd67c61f238887c0a821f1ed3dacde88270be8dc8f7a</code></p>
+
+  <div class="card">
+    <h2>After downloading</h2>
+    <ol>
+      <li>Verify the file (Command Prompt): <code>certutil -hashfile PBM-Setup-v8.exe SHA256</code><br>
+          Must print <b>0e6a4dbf…4b8c</b> — if not, delete it and download again.</li>
+      <li>Uninstall the previously installed version first.</li>
+      <li>Run the installer, then launch the app.</li>
+      <li>Sign in with <code>admin</code> / <code>admin123</code> → change the password in <b>User Management</b>.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>This page is served live from the build machine</h2>
+    <ul>
+      <li>While this tab stays open and the session is alive, the download above always works — it does not depend on the workspace file viewer.</li>
+      <li>If the download stalls, use the direct address: <code>release/PBM-Setup-v8.exe</code> (relative to this page's address).</li>
+      <li>The installer contains the sign-in screen; the packaged app was inspected and contains <code>auth:login</code>, <code>ensureDefaultAdmin</code> and the bcrypt hasher.</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

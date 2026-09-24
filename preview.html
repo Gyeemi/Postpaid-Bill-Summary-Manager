@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Postpaid Bill Manager v8 Preview</title>
+<style>
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin:0; background:#f1f5f9; color:#0f172a; }
+header { background:#0f2440; color:#fff; padding:18px 24px; }
+header h1 { margin:0; font-size:20px; }
+header p { margin:6px 0 0; color:#8fb0d4; font-size:13px; }
+main { max-width:1200px; margin:20px auto; padding:0 20px; }
+.card { background:#fff; border-radius:12px; padding:16px; margin-bottom:20px; box-shadow:0 1px 3px rgba(0,0,0,.1); }
+.btn { display:inline-block; background:#2f6db3; color:#fff; padding:10px 16px; border-radius:8px; text-decoration:none; font-weight:600; margin-right:8px; }
+.btn:hover { background:#1e4a7a; }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media(max-width:900px){ .grid{ grid-template-columns:1fr; } }
+img { width:100%; border:1px solid #e2e8f0; border-radius:8px; }
+h2 { font-size:18px; margin:0 0 12px; }
+h3 { font-size:14px; margin:12px 0 6px; color:#475569; }
+ul { margin:0; padding-left:20px; font-size:13px; line-height:1.6; }
+code { background:#e2e8f0; padding:2px 6px; border-radius:4px; font-size:12px; }
+</style>
+</head>
+<body>
+<header>
+<h1>Postpaid Bill Summary Manager - v8 Preview</h1>
+<p>Rebuilt from verified source (v7 shipped without the sign-in code by mistake). PDF options removed · Delete Draft for any month · A4 portrait reports · Secure sign-in. Default login admin / admin123</p>
+</header>
+<main>
+<div id="sandboxWarn" class="card" style="display:none; border:2px solid #dc2626; background:#fef2f2;">
+<h2 style="color:#991b1b">⚠️ You are viewing a static preview copy</h2>
+<p style="font-size:13px">Downloads are blocked inside the in-app preview frame. To download the installers, do ONE of the following:</p>
+<ul>
+<li><b>Option A (recommended):</b> Open the live preview panel <b>"Download Server v8"</b> (shown in your Arena workspace), then open it in a <b>new browser tab</b> and click <code>/release/PBM-Setup-v8.exe</code>.</li>
+<li><b>Option B:</b> In the Arena file viewer, open the file <code>release/PBM-Setup-v8.exe</code> directly and use the viewer's own <b>Download</b> button.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>📦 Download Installers (v8)</h2>
+<p>
+<a class="btn" href="release/PBM-Setup-v8.exe">⬇ PBM-Setup-v8.exe (91 MB) - Recommended</a>
+<span class="btn" style="background:#64748b" title="Portable build available on request — the Setup installer is the delivered build">Portable available on request</span>
+</p>
+<p style="font-size:12px;color:#64748b">Backup links (original filenames):
+<a href="release/Postpaid%20Bill%20Summary%20Manager-1.0.0-Setup.exe">Setup.exe</a> ·
+</p>
+<ul>
+<li>Space-free alias avoids 404 on download</li>
+<li>Windows 10/11 x64, 100% offline, data in %APPDATA%/Postpaid Bill Summary Manager</li>
+<li>Default admin: <code>admin / admin123</code> - bcrypt hashed in SQLite</li>
+</ul>
+<h3>Verify your download (SHA-256)</h3>
+<ul style="font-size:12px">
+<li><code>PBM-Setup-v8.exe</code> — f4c245899efb6509d4c6dd67c61f238887c0a821f1ed3dacde88270be8dc8f7a</li>
+<li>Portable — built on request</li>
+<li>Windows: <code>certutil -hashfile PBM-Setup-v8.exe SHA256</code></li>
+</ul>
+<p style="font-size:12px;color:#64748b">Package check: the shipped app folder contains <code>auth:login</code>, <code>users:create</code>, <code>drafts:delete</code>, the bcrypt hasher and the Windows x64 SQLite driver.</p>
+</div>
+<script>
+try { if (window.self !== window.top) document.getElementById('sandboxWarn').style.display = 'block'; } catch (e) { document.getElementById('sandboxWarn').style.display = 'block'; }
+</script>
+
+<div class="card">
+<h2>🗑 Delete Draft for previous months &amp; A4 portrait reports (v8)</h2>
+<div class="grid">
+<div>
+<h3>Delete Draft — previous billing months</h3>
+<img src="shots/smoke-history-drafts.png" alt="Drafts tab in Report History">
+<h3>Confirmation shows the month/year</h3>
+<img src="shots/smoke-draft-delete-confirm.png" alt="Delete draft confirmation dialog">
+</div>
+<div>
+<h3>Previous month removed, directory untouched</h3>
+<img src="shots/smoke-history-after-draft-delete.png" alt="Drafts list after deletion">
+<h3>A4 portrait export (PDF + Excel)</h3>
+<img src="shots/smoke-bill-summary-numbered.png" alt="Bill Summary">
+<ul>
+<li>Verified page box: <code>594.96 × 841.92 pt</code> (A4 portrait)</li>
+<li>Excel page setup: <code>paperSize 9, orientation portrait, fitToWidth 1</code></li>
+<li>Table header repeats on every printed page</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>🔐 Secure Sign-In & User Management (NEW in v8)</h2>
+<div class="grid">
+<div>
+<h3>Sign-In screen on launch</h3>
+<img src="shots_login/smoke-login-screen.png" alt="sign in screen">
+<p style="font-size:12px;color:#64748b">v6 shipped without the login screen (build regression) — v8 restores it. Wrong passwords are rejected with "Invalid username or password":</p>
+<img src="shots_login/smoke-login-error.png" alt="wrong password rejected" style="margin-top:6px">
+</div>
+<div>
+<h3>User Management (admin-only)</h3>
+<ul>
+<li>Create user: username, password min 6, role admin/standard, active/inactive</li>
+<li>Edit: change username, reset password, activate/deactivate, assign roles</li>
+<li>Delete: cannot delete self, cannot delete last admin</li>
+<li>Standard User: import, edit, view reports, cannot manage users/directory/settings</li>
+</ul>
+<img src="shots/smoke-user-management.png" alt="user management screen" style="margin-top:8px">
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>📄 PDF Options Removed</h2>
+<div class="grid">
+<div>
+<h3>Import PDF Bills - No PDF buttons</h3>
+<img src="shots_import/smoke-import-list.png" alt="import list">
+<p style="font-size:12px;color:#64748b">Only Review/Edit, Re-extract, Delete. Previously had Open PDF, Print PDF (5 buttons → 3 buttons)</p>
+</div>
+<div>
+<h3>Bill Summary - No per-record PDF print</h3>
+<img src="shots_import/smoke-bill-summary-numbered.png" alt="bill summary">
+<p style="font-size:12px;color:#64748b">Per-record actions: Edit, Remove only. Report-level: Print preview (portrait), Excel, PDF, Finalize</p>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>🗑️ Delete Drafts for Previous Months</h2>
+<div class="grid">
+<div>
+<h3>Report History - Drafts tab</h3>
+<img src="shots/smoke-report-history.png" alt="report history">
+<p style="font-size:12px;color:#64748b">Drafts tab shows all draft months (e.g., Aug 2026, Jul 2026). Delete Draft shows month/year, billCount, createdAt. Preserves Employee Directory.</p>
+</div>
+<div>
+<h3>Bulk Delete with Confirmation</h3>
+<img src="shots_import/smoke-import-confirm-modal.png" alt="confirm modal">
+<p style="font-size:12px;color:#64748b">Bulk toolbar "Delete selected (2)" + confirm modal with named bills. Tested for any month/year via ON DELETE CASCADE.</p>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>📃 Portrait Orientation</h2>
+<div class="grid">
+<div>
+<h3>Report HTML</h3>
+<ul>
+<li>@page { size: A4 portrait; margin: 9mm 8mm 10mm 8mm }</li>
+<li>Width 190mm, headers repeat if multi-page</li>
+<li>pdf.ts landscape:false both paths</li>
+<li>xlsx.ts orientation: portrait, paperSize 9 (A4)</li>
+</ul>
+</div>
+<div>
+<h3>Bill Summary & Settings</h3>
+<img src="shots/smoke-bill-summary.png" alt="bill summary empty">
+<img src="shots/smoke-settings.png" alt="settings" style="margin-top:8px">
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>📊 Flow Verification</h2>
+<div class="grid">
+<div>
+<img src="shots/smoke-dashboard.png" alt="dashboard">
+<h3>Dashboard</h3>
+<p style="font-size:12px">Shows period selector, totals, admin user</p>
+</div>
+<div>
+<img src="shots/smoke-employee-sim-directory.png" alt="directory">
+<h3>Employee & SIM Directory</h3>
+<p style="font-size:12px">Authoritative mobile number source, preserved on draft deletion</p>
+</div>
+<div>
+<img src="shots/smoke-import-pdf-bills.png" alt="import">
+<h3>Import PDF Bills</h3>
+<p style="font-size:12px">Drop PDFs, actual billing month selector, no PDF preview</p>
+</div>
+<div>
+<img src="shots_import/smoke-import-selected.png" alt="selected">
+<h3>Bulk Select</h3>
+<p style="font-size:12px">Multi-select with checkbox, toolbar appears</p>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>✅ Smoke Test Results</h2>
+<ul>
+<li><b>import smoke:</b> imported=6 skipped=0, numbers directory-name, statuses needs_review/extracted, breakdowns correct, snapshot order 02,06,01,03,04,05, bulk toolbar " Delete selected (2)", confirm modal true, removed=3</li>
+<li><b>full smoke:</b> 6 screenshots dashboard/import/bill-summary/directory/history/settings, auth login admin role=admin, renderer loaded without fatal errors</li>
+<li><b>draft delete test:</b> Created Aug 2026, Jul 2026, Jun 2026, Dec 2025 drafts, deleted Aug and Dec, verified cascade and directory preservation</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>📝 Release Notes</h2>
+<p><a href="RELEASE_NOTES_v8.md">View RELEASE_NOTES_v8.md</a></p>
+</div>
+
+</main>
+</body>
+</html>

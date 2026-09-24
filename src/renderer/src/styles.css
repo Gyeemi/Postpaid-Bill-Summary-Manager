@@ -1,0 +1,297 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #eef1f5;
+  --panel: #ffffff;
+  --panel-2: #f6f9fc;
+  --line: #d9e1ec;
+  --ink: #172436;
+  --mut: #5c6b81;
+  --acc: #16324f;
+  --acc-2: #2f6db3;
+  --ok: #0c7a43;
+  --warn: #a45c06;
+  --bad: #b3261e;
+  --ok-bg: #e4f4ea;
+  --warn-bg: #fdf1dd;
+  --bad-bg: #fde7e6;
+  --info-bg: #e7effa;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0c131c;
+  --panel: #141e2b;
+  --panel-2: #1a2637;
+  --line: #2b3a52;
+  --ink: #e6edf6;
+  --mut: #93a4bb;
+  --acc: #0e2036;
+  --acc-2: #4f8fce;
+  --ok: #3fbd7c;
+  --warn: #e2a353;
+  --bad: #e88079;
+  --ok-bg: #0f2b1e;
+  --warn-bg: #33240c;
+  --bad-bg: #351614;
+  --info-bg: #14233a;
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--acc-2) 35%, transparent);
+}
+
+h1, h2, h3, p, input, textarea, select, table {
+  user-select: text;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(15, 40, 80, 0.05);
+}
+
+.panel-title {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, opacity 0.15s;
+  white-space: nowrap;
+}
+.btn:hover:not(:disabled) {
+  border-color: var(--acc-2);
+  background: var(--panel-2);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn-primary {
+  background: var(--acc-2);
+  border-color: transparent;
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--acc-2) 85%, black);
+  border-color: transparent;
+}
+.btn-danger {
+  background: var(--bad);
+  border-color: transparent;
+  color: #fff;
+}
+.btn-danger:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--bad) 85%, black);
+}
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 7px;
+}
+.btn-icon {
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--ink);
+  padding: 7px 10px;
+  font-size: 13.5px;
+  outline: none;
+}
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--acc-2);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--acc-2) 22%, transparent);
+}
+.input.mono {
+  font-variant-numeric: tabular-nums;
+}
+.input.err {
+  border-color: var(--bad);
+}
+
+.label {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--mut);
+  margin-bottom: 4px;
+}
+
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.tbl th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--mut);
+  font-weight: 700;
+  padding: 9px 10px;
+  border-bottom: 1.5px solid var(--line);
+  background: var(--panel);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.tbl td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+.tbl tbody tr:hover td {
+  background: color-mix(in srgb, var(--acc-2) 6%, transparent);
+}
+.tbl .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.badge-ok { color: var(--ok); background: var(--ok-bg); }
+.badge-warn { color: var(--warn); background: var(--warn-bg); }
+.badge-bad { color: var(--bad); background: var(--bad-bg); }
+.badge-info { color: var(--acc-2); background: var(--info-bg); }
+.badge-mut { color: var(--mut); background: var(--panel-2); }
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: color-mix(in srgb, #dbe7f5 80%, white);
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+.nav-item.active {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+
+.toast {
+  border-left: 4px solid var(--acc-2);
+  animation: slide-in 0.18s ease-out;
+}
+.toast-err { border-left-color: var(--bad); }
+.toast-ok { border-left-color: var(--ok); }
+
+@keyframes slide-in {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.progress-line {
+  height: 4px;
+  border-radius: 4px;
+  background: var(--line);
+  overflow: hidden;
+}
+.progress-line > div {
+  height: 100%;
+  background: var(--acc-2);
+  transition: width 0.25s ease;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 18, 32, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 5vh 16px 16px;
+  z-index: 50;
+  overflow: auto;
+}
+
+.dropzone {
+  border: 2px dashed color-mix(in srgb, var(--acc-2) 55%, var(--line));
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--acc-2) 5%, var(--panel));
+  transition: background 0.15s, border-color 0.15s;
+}
+.dropzone.drag {
+  background: color-mix(in srgb, var(--acc-2) 14%, var(--panel));
+  border-color: var(--acc-2);
+}
+
+.linkish {
+  color: var(--acc-2);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* multi-select checkboxes on the import list */
+.tbl th.chk, .tbl td.chk { width: 38px; text-align: center; padding-right: 0; }
+.tbl input[type='checkbox'] { width: 15px; height: 15px; accent-color: var(--acc-2); cursor: pointer; vertical-align: middle; }

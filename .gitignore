@@ -1,0 +1,13 @@
+node_modules
+out
+dist
+release
+resources/pdfjs
+coverage
+*.log
+.DS_Store
+.vite
+__pycache__
+samples/*.pdf
+*.bundle
+PBM-*.tar.gz
