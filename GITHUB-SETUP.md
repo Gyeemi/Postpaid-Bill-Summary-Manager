@@ -1,5 +1,13 @@
 # Putting this project on GitHub
 
+> **Status: connected.** The v8 source is live at
+> <https://github.com/Gyeemi/Postpaid-Bill-Summary-Manager> (branch `main`).
+> It was pushed from the build machine using a **write-enabled deploy key**
+> (GitHub → repo → Settings → Deploy keys). Keep that key while further pushes are
+> wanted, or delete it once you push from your own computer — history is unaffected.
+> Everyday pushes from your machine use a Personal Access Token instead; see Route A below.
+
+
 This folder is already a **git repository with one commit** (`v1.0.0 — v8 build`), and
 `pbm-git-repo.bundle` is a portable copy of that repository you can clone from anywhere.
 Pick one of the two routes below.
